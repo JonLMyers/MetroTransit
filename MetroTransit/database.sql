@@ -1,17 +1,21 @@
 USE metro;
 
+drop table tickets;
+drop table users;
+
 CREATE TABLE IF NOT EXISTS `tickets` ( 
-  `id` int(11) NOT NULL AUTO_INCREMENT, 
+  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY, 
   `start` varchar(100) NOT NULL, 
   `end` varchar(100) NOT NULL, 
-  `cost` decimal(6,2) NOT NULL, 
-  PRIMARY KEY (`id`) 
+  `cost` decimal(6,2) NOT NULL 
 );
 
 CREATE TABLE IF NOT EXISTS `users` ( 
   `id` int(11) NOT NULL AUTO_INCREMENT, 
   `username` varchar(100) NOT NULL, 
-  `password` varchar(100) NOT NULL, 
+  `password` varchar(100) NOT NULL,
+  `ticket_id` int(11),
+  Foreign Key (ticket_id) references tickets(id),
   PRIMARY KEY (`id`) 
 );
 
