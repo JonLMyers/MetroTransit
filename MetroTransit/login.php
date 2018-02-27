@@ -5,6 +5,7 @@ require_once 'db.php';
 // Define variables and initialize with empty values
 $username = $password = "";
 $username_err = $password_err = "";
+$domain = ($_SERVER['HTTP_HOST'] != 'localhost') ? $_SERVER['HTTP_HOST'] : false;
  
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -51,7 +52,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             session_start();
                             $_SESSION['username'] = $username;
                             $_SESSION['id'] = $id;
-                            $_SESSION['isauth'] = 'yes';      
+                            $_SESSION['isauth'] = 'yes';
+                            setcookie("admin", "false", time() + (86400 * 30), "/");    
                             header("location: /");
                         } else{
                             // Display an error message if password is not valid
