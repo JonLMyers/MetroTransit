@@ -27,11 +27,23 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     
     // Validate credentials
     if(empty($username_err) && empty($password_err)){
-        if(Authenticate_High($username, $user_password, $mysqli)){
-            header("location: /");
-        }
-        else{
-            $username_err = $password_err = "Invalid Credentials";
+        switch($AuthenticateSetting){
+            case "Low":
+                if(Authenticate_Low($username, $user_password, $mysqli)){
+                    header("location: /");
+                }
+                else{
+                    $username_err = $password_err = "Invalid Credentials";
+                }
+                break;
+            case "High":
+                if(Authenticate_High($username, $user_password, $mysqli)){
+                    header("location: /");
+                }
+                else{
+                    $username_err = $password_err = "Invalid Credentials";
+                }
+                break;
         }
     }
 }

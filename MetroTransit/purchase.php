@@ -77,6 +77,7 @@ function transaction($userid, $usercredits, $ticketcost, $mysqli){
     return $result;
 }
 
+#Vulnerable to SQLi
 function getcost($param_id, $mysqli){
     $result = "";
     $sql = "SELECT cost FROM tickets WHERE id = $param_id";

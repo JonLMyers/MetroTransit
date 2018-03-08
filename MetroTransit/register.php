@@ -1,6 +1,7 @@
 <?php
     // include database connection
     include 'db.php';
+    include 'settings.php';
     $mysqli = $con;
 
     $username = $password = $confirm_password = "";
@@ -14,7 +15,16 @@
             $username_err = "Please enter a username.";
         } else{
             $param_username = trim($_POST["username"]);
-            $username = ValidateUsername_High($param_username, $mysqli);
+            
+            switch($ValidateUsernameSetting){
+                case "Low":
+                    $username = ValidateUsername_Low($param_username, $mysqli);
+                    break;
+                case "High":
+                    $username = ValidateUsername_High($param_username, $mysqli);
+                    break;
+            }
+            
             if($username == "This username is already taken."){
                 $username_err = $username;
             }
@@ -41,7 +51,14 @@
         
         // Check input errors before inserting in database
         if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){
-            Register_High($username, $password, $mysqli);
+            switch($RegisterSetting){
+                case "Low":
+                    Register_Low($username, $password, $mysqli);
+                    break;
+                case "High":
+                    Register_High($username, $password, $mysqli);    
+                    break;
+            }
         }
         
     }
@@ -74,8 +91,25 @@
         // Close statement
         $stmt->close();
 
+        return $username;    
+    }
+
+    function ValidateUsername_Low($param_username, $mysqli){
+        $sql = "SELECT id FROM users WHERE username = '$param_username'";
+        if($result = $mysqli->query($sql)){
+            if($result->num_rows == 1){
+                $username_err = "This username is already taken.";
+                return $username_err;
+            }
+            else{
+                $username = $param_username;
+            }
+        }
+        else{
+            echo "Something went wrong. Please try again later.";
+            echo $mysqli->errno;
+        }   
         return $username;
-        
     }
 
     function Register_High($param_username, $param_password, $mysqli){
@@ -102,6 +136,16 @@
         $mysqli->close();
     }
 
+    function Register_Low($param_username, $param_password, $mysqli){
+        $sql = "INSERT INTO users (username, password, credits) VALUES ('$param_username', '$param_password', '300.00')";
+        if($mysqli->query($sql)){
+            header("location: login.php");
+        }
+        else{
+            echo "Something went wrong. Please try again later.";
+            echo $mysqli->errno;
+        }     
+    }
 
 ?>
 
