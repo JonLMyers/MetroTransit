@@ -98,7 +98,9 @@ function getcredits(){
     
     // select all data
     $query = "SELECT *  FROM tickets inner join users_tickets ON tickets.id = users_tickets.ticket_id inner join users on users.id = ?";
+    
     if($stmt = $mysqli->prepare($query)){
+        
         // Bind variables to the prepared statement as parameters
         $stmt->bind_param("s", $param_userid);
         
@@ -110,7 +112,6 @@ function getcredits(){
             // store result
             //$stmt->store_result();
             $result = $stmt->get_result();
-            
         } else{
             echo "Oops! Something went wrong. Please try again later.";
         }

@@ -75,7 +75,6 @@
         $stmt->close();
 
         return $username;
-        
     }
 
     function Register_High($param_username, $param_password, $mysqli){
