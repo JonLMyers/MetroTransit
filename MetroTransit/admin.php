@@ -1,17 +1,30 @@
 <?php
+include 'settings.php';
 session_start();
 if (!isset($_SESSION["id"]))
  {
     header("location: login.php");
  }
 
-if($_COOKIE['admin'] != "true"){
-    header("location: login.php");
+switch($AdminSetting){
+    case "Low":
+        if(Admin_Low($_COOKIE['admin'])){
+            header("location: login.php");
+        }
+        break;
+    case "Medium":
+        if(Admin_Medium($_COOKIE['admin'])){
+            header("location: login.php");
+        }
+    case "High":
+        if(Admin_High($_SESSION['admin'])){
+            header("location: login.php");
+        }
+        break;
 }
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     include 'db.php';
-    include 'settings.php';
     $mysqli = $con;
     $userid = $_SESSION['id'];
     $ticketid = urldecode($_GET["id"]);
@@ -38,6 +51,34 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     // Close statement
     $stmt->close();
+}
+
+function Admin_High($param_admin){
+    if($param_admin != "true"){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+function Admin_Medium($param_admin){
+    $admin = base64_decode($param_admin);
+    if(md5("true") != $admin){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+function Admin_Low($param_admin){
+    if($param_admin != "true"){
+        return true;
+    }
+    else{
+        return false;
+    }
 }
 ?>
 

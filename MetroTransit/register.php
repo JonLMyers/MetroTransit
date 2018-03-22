@@ -59,8 +59,7 @@
                     Register_High($username, $password, $mysqli);    
                     break;
             }
-        }
-        
+        }  
     }
 
     function ValidateUsername_High($param_username, $mysqli){
@@ -109,7 +108,7 @@
             echo "Something went wrong. Please try again later.";
             echo $mysqli->errno;
         }
-        $username = $param_username 
+        $username = $param_username; 
         return $username;
     }
 

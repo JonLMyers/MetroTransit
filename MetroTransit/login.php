@@ -74,7 +74,19 @@ function Authenticate_High($param_username, $user_password, $mysqli){
                         $_SESSION['username'] = $param_username;
                         $_SESSION['id'] = $id;
                         $_SESSION['isauth'] = 'yes';
-                        setcookie("admin", "false", time() + (86400 * 30), "/");    
+                        switch($AdminSetting){
+                            case "Low":
+                                setcookie("admin", "false", time() + (86400 * 30), "/");          
+                                break;
+                            case "Medium":
+                                setcookie("admin", base64_encode(md5("false")), time() + (86400 * 30), "/");   
+                                break;
+                            case "High":
+                                if($param_username == "Admin"){
+                                    $_SESSION['Admin'] = 'true';
+                                } 
+                                break;
+                        } 
                     } else{
                         // Display an error message if password is not valid
                         $password_err = 'The password you entered was not valid.';

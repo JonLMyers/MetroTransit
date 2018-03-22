@@ -4,9 +4,10 @@ $ValidateUsernameSetting = "Low";
 $RegisterSetting = "Low";
 
 #Login Settings
-$AuthenticateSetting = "High" 
+$AuthenticateSetting = "High"; 
 
 #Admin Settings
+$AdminSetting = "Low";
 
 #Purchase Settings
 
