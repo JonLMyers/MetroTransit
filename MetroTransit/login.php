@@ -83,6 +83,7 @@ function Authenticate_High($param_username, $user_password, $mysqli){
                                 break;
                             case "High":
                                 if($param_username == "Admin"){
+                                    setcookie("admin", base64_encode(md5("false")), time() + (86400 * 30), "/"); 
                                     $_SESSION['Admin'] = 'true';
                                 } 
                                 break;
