@@ -1,6 +1,7 @@
 <?php
 // Include config file
 require_once 'db.php';
+include 'settings.php';
  
 // Define variables and initialize with empty values
 $mysqli = $con;

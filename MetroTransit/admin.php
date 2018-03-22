@@ -11,6 +11,7 @@ if($_COOKIE['admin'] != "true"){
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     include 'db.php';
+    include 'settings.php';
     $mysqli = $con;
     $userid = $_SESSION['id'];
     $ticketid = urldecode($_GET["id"]);

@@ -49,7 +49,7 @@
 <?php
     // include database connection
     include 'db.php';
-    
+    include 'settings.php';
     // delete message prompt will be here
  
     // select all data

@@ -108,7 +108,8 @@
         else{
             echo "Something went wrong. Please try again later.";
             echo $mysqli->errno;
-        }   
+        }
+        $username = $param_username 
         return $username;
     }
 

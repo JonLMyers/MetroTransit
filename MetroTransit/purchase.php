@@ -6,6 +6,7 @@ session_start();
    }
    
 include 'db.php';
+include 'settings.php';
 $userid = $_SESSION['id'];
 $ticketid = urldecode($_GET["id"]);
 
