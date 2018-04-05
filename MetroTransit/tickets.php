@@ -45,66 +45,26 @@
         <div class="page-header">
             <h1>Available Tickets</h1>
         </div>
-     
-<?php
-    // include database connection
-    include 'db.php';
-    include 'settings.php';
-    // delete message prompt will be here
- 
-    // select all data
-    $query = "SELECT * FROM tickets ORDER BY id ASC";
-    $result = $con->query($query);
- 
-    // this is how to get number of rows returned
-    $num = $result->num_rows;
- 
-    //check if more than 0 record found
-    if($num > 0){
- 
-        echo "<table class='table table-hover table-responsive table-bordered'>";//start table
- 
-            //creating our table heading
-            echo "<tr>";
-                echo "<th>ID</th>";
-                echo "<th>Start</th>";
-                echo "<th>Destination</th>";
-                echo "<th>Price</th>";
-                echo "<th>Action</th>";
-            echo "</tr>";
-     
-        // retrieve our table contents
-        // fetch() is faster than fetchAll()
-        // http://stackoverflow.com/questions/2770630/pdofetchall-vs-pdofetch-in-a-loop
-        while ($row = $result->fetch_assoc()){
-            // extract row
-            // this will make $row['firstname'] to
-            // just $firstname only
-            extract($row);
-     
-            // creating new table row per record
-            echo "<tr>";
-                echo "<td>{$id}</td>";
-                echo "<td>{$start}</td>";
-                echo "<td>{$end}</td>";
-                echo "<td>&#36;{$cost}</td>";
-                echo "<td>";
-                    // Buy a ticket
-                    echo "<a href='purchase.php?id={$id}' class='btn btn-info m-r-1em'>Buy</a>";
-                echo "</td>";
-            echo "</tr>";
-        }
- 
-        // end table
-        echo "</table>";
-     
-    }
- 
-    // if no records found
-    else{
-        echo "<div class='alert alert-danger'>No records found.</div>";
-    }
+        <h3>Search by Ticket Price</h3> 
+	    <form  method="get" action="/tickets.php"  id="searchform"> 
+	      <input type="text" name="search"> 
+          <input type="hidden" value ="search.php" name="file">
+	      <button type="submit">Search</button> 
+	    </form> 
+    
+
+<?php 
+$file = $_GET['file'];
+if(isset($file)){
+    include("$file");
+}
+else{
+    header('Location: http://127.0.0.1/tickets.php?file=search.php&search=*');
+    exit();
+}
+
 ?>
+    
          
     </div> <!-- end .container -->
      

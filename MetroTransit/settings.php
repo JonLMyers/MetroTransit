@@ -12,6 +12,6 @@ $AdminSetting = "Low";
 #Purchase Settings
 
 #Tickets Settings
-
+$SearchSetting = "High"
 #Account Settings
 ?>
