@@ -54,15 +54,31 @@
     
 
 <?php 
-$file = $_GET['file'];
-if(isset($file)){
-    include("$file");
-}
-else{
-    header('Location: http://127.0.0.1/tickets.php?file=search.php&search=*');
-    exit();
+include 'settings.php';
+switch($LFISetting){
+    case "High":
+        lfi_High($search);
+        break;
+    case "Low":
+        lfi_Low($search);
+        break;
 }
 
+
+function lfi_low(){
+    $file = $_GET['file'];
+    if(isset($file)){
+        include("$file");
+    }
+    else{
+        header('Location: http://127.0.0.1/tickets.php?file=search.php&search=*');
+        exit();
+    }
+}
+
+function lfi_high(){
+    include 'search.php';
+}
 ?>
     
          
