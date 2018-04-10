@@ -71,7 +71,7 @@ function lfi_low(){
         include("$file");
     }
     else{
-        header('Location: http://127.0.0.1/tickets.php?file=search.php&search=*');
+        header('Location: http://' + $HomeSetting + '/tickets.php?file=search.php&search=*');
         exit();
     }
 }

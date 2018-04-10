@@ -1,4 +1,7 @@
 <?php
+#General Settings
+$HomeSetting = '127.0.0.1'
+
 #Register Settings
 $ValidateUsernameSetting = "Low";
 $RegisterSetting = "Low";
