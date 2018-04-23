@@ -135,7 +135,6 @@ function searchHigh($search){
         echo "</table>";
         
     }
-    
     // if no records found
     else{
         echo "<div class='alert alert-danger'>No records found.</div>";
@@ -143,4 +142,4 @@ function searchHigh($search){
     $stmt->close();
     return true;
 }
-?>
+?>  

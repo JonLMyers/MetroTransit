@@ -79,6 +79,47 @@ function lfi_low(){
 function lfi_high(){
     include 'search.php';
 }
+
+function get_tickets(){
+    $curl = curl_init();
+    $url = 'http://127.0.0.1:5000/tickets';
+
+    curl_setopt($curl, CURLOPT_GET, 1);
+    curl_setopt($curl, CURLOPT_URL, $url);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+
+    $result = curl_exec($curl);
+    curl_close($curl);
+
+    foreach ($result->items as $item) {
+        $id = $item->id;
+        $start = $item->start;
+        $end = $item->end;
+        $cost = $item->cost;
+        // Prepare an insert statement
+        $sql = "INSERT INTO tickets (start, end, cost, id) VALUES (?, ?, ?, ?)";
+
+        if($stmt = $mysqli->prepare($sql)){
+            // Bind variables to the prepared statement as parameters
+            $stmt->bind_param("ssss", $start, $end, $cost, $id);
+
+            // Attempt to execute the prepared statement
+            if($stmt->execute()){
+                // Redirect to login page
+            } else{
+                echo "Something went wrong. Please try again later.";
+            }
+        }
+        else{
+            echo "Something went wrong. Please try again later.";
+        }
+
+        // Close connection
+        $mysqli->close();
+     }
+
+    return $result;
+}
 ?>
     
          
